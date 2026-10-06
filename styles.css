@@ -109,12 +109,21 @@ p { margin: 0; }
 
 .section-heading-row { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 32px; }
 .quiet-link { color: var(--soft-ink); font-size: .8rem; padding-bottom: 8px; }
-.direction-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.direction-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.direction-card { min-width: 0; }
 .direction-card img {
-  width: 100%;
-  aspect-ratio: 1.45 / 1;
-  object-fit: cover;
   display: block;
+  width: 100%;
+  height: auto !important;
+  max-height: none;
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: center;
   image-rendering: auto;
 }
 .direction-number { margin-top: 14px; font-size: .68rem; color: var(--soft-ink); }
@@ -267,7 +276,7 @@ p { margin: 0; }
   .quiet-link { display: block; margin-top: 12px; }
   .direction-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding-bottom: 12px; margin-right: -15px; }
   .direction-card { min-width: 78vw; scroll-snap-align: start; }
-  .direction-card img { aspect-ratio: 1.4/1; }
+  .direction-card img { width: 100%; height: auto !important; aspect-ratio: auto; object-fit: contain; }
   .services h2 { font-size: 2.7rem; }
   .craft-grid { grid-template-columns: 1fr; }
   .restoration-visual img { min-height: 0; width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; }
