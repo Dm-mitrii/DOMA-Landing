@@ -1,17 +1,23 @@
+const isSerbian = document.documentElement.lang.toLowerCase().startsWith('sr');
 const menuButton = document.querySelector('.menu-toggle');
 const mainNav = document.querySelector('.main-nav');
+const menuLabels = isSerbian
+  ? { open: 'Otvori meni', close: 'Zatvori meni' }
+  : { open: 'Открыть меню', close: 'Закрыть меню' };
 
 if (menuButton && mainNav) {
-  menuButton.addEventListener('click', () => {
-    const isOpen = mainNav.classList.toggle('open');
+  const setMenuState = (isOpen) => {
+    mainNav.classList.toggle('open', isOpen);
     menuButton.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  mainNav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      mainNav.classList.remove('open');
-      menuButton.setAttribute('aria-expanded', 'false');
-    });
+    menuButton.setAttribute('aria-label', isOpen ? menuLabels.close : menuLabels.open);
+  };
+  menuButton.addEventListener('click', () => setMenuState(!mainNav.classList.contains('open')));
+  mainNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenuState(false)));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mainNav.classList.contains('open')) {
+      setMenuState(false);
+      menuButton.focus();
+    }
   });
 }
 
@@ -27,7 +33,6 @@ if (optionalToggle && optionalMessage) {
   });
 }
 
-const isSerbian = document.documentElement.lang.toLowerCase().startsWith('sr');
 const phoneInput = document.querySelector('input[name="phone"]');
 if (phoneInput && !isSerbian) {
   phoneInput.addEventListener('input', () => {
@@ -75,6 +80,7 @@ if (form && formStatus) {
     const originalText = submitButton.innerHTML;
     submitButton.disabled = true;
     submitButton.textContent = formCopy.sending;
+    form.setAttribute('aria-busy', 'true');
     formStatus.textContent = '';
 
     const data = Object.fromEntries(new FormData(form).entries());
@@ -105,6 +111,7 @@ if (form && formStatus) {
     } catch (error) {
       formStatus.textContent = formCopy.error;
     } finally {
+      form.removeAttribute('aria-busy');
       submitButton.disabled = false;
       submitButton.innerHTML = originalText;
     }
