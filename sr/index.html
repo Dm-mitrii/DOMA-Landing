@@ -136,7 +136,18 @@
     <section class="craft-section">
       <div class="container craft-grid">
         <div class="restoration-visual">
-          <img src="../assets/restoration.jpg" width="1568" height="1003" alt="Fotelja pre i posle restauracije" loading="lazy" decoding="async">
+          <div class="restoration-compare" data-compare style="--position: 50%;">
+            <img class="restoration-image restoration-after" src="../assets/restoration-after.jpg" width="1420" height="1003" alt="Fotelja posle restauracije" loading="lazy" decoding="async">
+            <div class="restoration-before-wrap">
+              <img class="restoration-image restoration-before" src="../assets/restoration-before.jpg" width="1420" height="1003" alt="Fotelja pre restauracije" loading="lazy" decoding="async">
+            </div>
+            <span class="restoration-label restoration-label-before">Pre</span>
+            <span class="restoration-label restoration-label-after">Posle</span>
+            <div class="restoration-divider" aria-hidden="true">
+              <span class="restoration-handle"><span>‹</span><span>›</span></span>
+            </div>
+            <input class="restoration-range" type="range" min="0" max="100" value="50" aria-label="Uporedi fotelju pre i posle restauracije">
+          </div>
         </div>
         <div class="craft-copy">
           <p class="eyebrow dark">Restauracija</p>

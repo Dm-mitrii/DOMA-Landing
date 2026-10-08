@@ -117,3 +117,21 @@ if (form && formStatus) {
     }
   });
 }
+
+
+const restorationComparisons = document.querySelectorAll('[data-compare]');
+restorationComparisons.forEach((comparison) => {
+  const range = comparison.querySelector('.restoration-range');
+  if (!range) return;
+
+  const updateComparison = () => {
+    const value = Number(range.value);
+    comparison.style.setProperty('--position', value + '%');
+    const before = isSerbian ? 'pre restauracije' : 'до реставрации';
+    const after = isSerbian ? 'posle restauracije' : 'после реставрации';
+    range.setAttribute('aria-valuetext', value + '% ' + before + ', ' + (100 - value) + '% ' + after);
+  };
+
+  range.addEventListener('input', updateComparison);
+  updateComparison();
+});
